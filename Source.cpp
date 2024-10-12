@@ -14,26 +14,29 @@ int main()
 
 	char* screen = new char[width * height + 1];
 	screen[width * height] = '\0';
-
-	for (int i = 0; i < width; i++)
+	
+	for (int t = 0; t < 10000000; t++)
 	{
-		for (int j = 0; j < height; j++)
+		for (int i = 0; i < width; i++)
 		{
-			float x = (float)i / width * 2.0f - 1.0f;
-			float y = (float)j / height * 2.0f - 1.0f;
-			x *= aspect * pixelAspect;
-			float distance = x * x + y * y;
-			char pixel = ' ';
-			if (distance < outerRadius * outerRadius && distance > innerRadius * innerRadius)
+			for (int j = 0; j < height; j++)
 			{
-				pixel = '@';
+				float x = (float)i / width * 2.0f - 1.0f;
+				float y = (float)j / height * 2.0f - 1.0f;
+				x *= aspect * pixelAspect;
+				x += sin(t * 0.001);
+				float distance = x * x + y * y;
+				char pixel = ' ';
+				if (distance < outerRadius * outerRadius && distance > innerRadius * innerRadius)
+				{
+					pixel = '@';
+				}
+				screen[i + j * width] = pixel;
 			}
-			screen[i + j * width] = pixel;
 		}
+		cout << screen;
 	}
-
-	cout << screen;
-
+	 
 	delete[] screen;
 
 	return 0;
